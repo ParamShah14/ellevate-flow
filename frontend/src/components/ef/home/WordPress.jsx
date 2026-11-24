@@ -20,7 +20,7 @@ export const WordPressPricing = ({ className = "" }) => (
 );
 
 export const WordPressTeaser = () => {
-  const { main, alt } = usePrice();
+  const { main } = usePrice();
   return (
   <section className="pb-20 sm:pb-28" data-testid="home-wordpress">
     <div className="container-x">
@@ -38,7 +38,6 @@ export const WordPressTeaser = () => {
               <li key={p.name} className="rounded-2xl bg-canvas p-5" data-testid={`home-wp-${p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
                 <p className="text-[14px] font-semibold text-ink">{p.name}</p>
                 <p className="mt-2 font-display text-2xl font-bold text-gradient">{main(p.inr)}</p>
-                <p className="text-[13.5px] font-medium text-muted2">≈ {alt(p.inr)}</p>
               </li>
             ))}
           </ul>

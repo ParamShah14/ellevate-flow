@@ -37,9 +37,10 @@ const Col = ({ title, links, testId }) => (
 export const Footer = () => (
   <footer className="bg-ink pt-16 text-white" data-testid="site-footer">
     <div className="container-x grid gap-12 pb-12 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.1fr_1.3fr]">
-      <div>
-        <Link to="/" data-testid="footer-logo-link"><Logo light /></Link>
-        <p className="mt-5 max-w-xs text-[15px] leading-relaxed text-white/75">AI automation and digital growth agency helping businesses grow with smarter systems, better websites and lead management.</p>
+      <div className="lg:-ml-1">
+        <Link to="/" data-testid="footer-logo-link" className="inline-block"><Logo light /></Link>
+        <p className="mt-5 max-w-xs text-[15px] leading-relaxed text-white/75" data-testid="footer-description">AI automation and web development agency helping businesses build smarter systems, capture more leads and grow with confidence.</p>
+        <p className="mt-5 font-display text-[16px] font-semibold text-white" data-testid="footer-tagline">Smarter Websites. <span className="text-gradient">Intelligent Automation.</span> Better Growth.</p>
       </div>
       <Col title="Quick Links" links={QUICK} testId="footer-quick" />
       <Col title="Services" links={SERVICES} testId="footer-services" />

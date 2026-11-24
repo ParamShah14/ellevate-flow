@@ -18,7 +18,7 @@ const Fade = ({ delay, children, className = "" }) => (
 );
 
 const TiltStack = () => {
-  const { main, alt } = usePrice();
+  const { main } = usePrice();
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const rx = useSpring(useTransform(my, [-0.5, 0.5], [14, -6]), { stiffness: 120, damping: 18 });
@@ -47,7 +47,6 @@ const TiltStack = () => {
             <div>
               <p className="font-mono text-[11.5px] uppercase tracking-[0.16em] opacity-75">{c.n} · Starting at</p>
               <p className="mt-2 font-display text-3xl font-bold sm:text-4xl">{main(c.inr)}</p>
-              <p className="mt-1 text-[13.5px] font-medium opacity-80">≈ {alt(c.inr)}</p>
               <p className="mt-1 text-[14.5px] font-medium opacity-85">{c.label}</p>
             </div>
             <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-current/20 transition-transform duration-500 group-hover:rotate-45">

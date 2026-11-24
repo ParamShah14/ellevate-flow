@@ -13,7 +13,7 @@ const ROWS = [
 ];
 
 export const PricingPreview = () => {
-  const { main, alt } = usePrice();
+  const { main } = usePrice();
   return (
   <section className="bg-white py-20 sm:py-28" data-testid="home-pricing">
     <div className="container-x">
@@ -25,7 +25,6 @@ export const PricingPreview = () => {
             <Link to={r.to} className={`group flex h-full flex-col rounded-[28px] p-7 transition-transform duration-500 hover:-translate-y-1.5 ${r.hl ? "bg-ink text-white" : "card-soft"}`} data-testid={`pricing-preview-${i}`}>
               <p className={`font-mono text-[11.5px] uppercase tracking-[0.16em] ${r.hl ? "text-tangerine" : "text-violet"}`}>Starting at</p>
               <p className="mt-3 font-display text-4xl font-bold">{main(r.from)}</p>
-              <p className={`mt-1 text-[14px] font-medium ${r.hl ? "text-white/80" : "text-muted2"}`}>≈ {alt(r.from)}</p>
               <p className="mt-6 text-lg font-semibold">{r.title}</p>
               <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-[14.5px] font-semibold">View packages <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
             </Link>

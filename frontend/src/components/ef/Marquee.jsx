@@ -1,4 +1,4 @@
-const WORDS = ["Websites That Convert", "Lead Capture Automation", "AI Chatbots", "CRM Integration", "Appointment Booking", "Complete Growth System"];
+const WORDS = ["Website Development", "Lead Capture Automation", "AI Chatbots", "CRM Integration", "Appointment Booking", "Complete Growth System"];
 
 export const Marquee = () => (
   <div className="relative overflow-hidden border-y border-ink/10 bg-white/60 py-7" data-testid="pricing-marquee" aria-hidden="true">

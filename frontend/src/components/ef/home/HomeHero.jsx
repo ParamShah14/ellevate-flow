@@ -22,16 +22,24 @@ const HeroVisual = () => {
   };
   return (
     <div className="relative mx-auto w-full max-w-[560px] [perspective:1400px]" onMouseMove={onMove} onMouseLeave={() => { mx.set(0); my.set(0); }} data-testid="home-hero-visual">
-      <motion.img
-        src="/img/hero-man2.jpg"
-        alt="EllevateFlow automation consultant holding a laptop"
-        fetchpriority="high"
+      <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         style={{ rotateX: rx, rotateY: ry }}
-        className="w-full rounded-[36px] mix-blend-multiply"
-      />
+        className="relative"
+      >
+        <img src="/img/hero-man2.jpg" alt="EllevateFlow automation consultant holding a laptop" fetchpriority="high" className="w-full rounded-[36px] mix-blend-multiply" />
+        <span aria-hidden="true" className="absolute h-[1.6%] w-[1.6%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" style={{ left: "60.6%", top: "27.96%" }} />
+        <motion.span
+          aria-hidden="true"
+          data-testid="hero-workflow-dot"
+          className="absolute h-[1.5%] w-[1.5%] min-h-[6px] min-w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-coral shadow-[0_0_0_4px_rgba(255,90,95,0.18),0_0_12px_rgba(255,90,95,0.8)]"
+          style={{ top: "27.96%" }}
+          animate={{ left: ["60.6%", "70.9%", "70.9%", "81.1%", "81.1%"], opacity: [1, 1, 1, 1, 0] }}
+          transition={{ duration: 3, times: [0, 0.35, 0.5, 0.85, 1], repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
     </div>
   );
 };

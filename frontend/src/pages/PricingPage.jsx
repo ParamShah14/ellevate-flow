@@ -4,7 +4,6 @@ import { PricingSection } from "@/components/ef/PricingSection";
 import { GrowthSection } from "@/components/ef/GrowthSection";
 import { CustomQuote } from "@/components/ef/CustomQuote";
 import { WordPressPricing } from "@/components/ef/home/WordPress";
-import { SpecialOffer } from "@/components/ef/home/SpecialOffer";
 import { WEBSITE_PLANS, AUTOMATION_PLANS } from "@/data/pricing";
 
 export default function PricingPage() {
@@ -33,7 +32,6 @@ export default function PricingPage() {
         className="border-t border-ink/5 bg-white"
       />
       <GrowthSection />
-      <SpecialOffer />
       <CustomQuote />
     </>
   );
