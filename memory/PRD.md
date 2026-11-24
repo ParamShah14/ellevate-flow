@@ -21,6 +21,11 @@ Build three premium pricing sections (Website Development, AI Automation, Comple
 - All prices shown in INR + approx USD (rate 88 INR/USD in lib/currency.js, rounded to …9)
 - Floating WhatsApp button → wa.me/918401427743; phone + email in contact & footer; no social links
 
+## Implemented (2026-11-24, iteration 3)
+- Customer logo (navbar light / footer white-text versions), customer hero image on Home
+- INR/USD toggle buttons (saved per browser) on all price areas; USD = INR/88 × 1.12, rounded to …9
+- Contact & About images removed; niche images on Services; 4-column footer per reference + /privacy, /terms pages
+
 ## Backlog
 - P1: Merge these sections into the live EllevateFlow codebase (separate project)
 - P1: Admin view of enquiries

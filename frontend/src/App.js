@@ -12,6 +12,8 @@ import PortfolioPage from "@/pages/PortfolioPage";
 import PricingPage from "@/pages/PricingPage";
 import AboutPage from "@/pages/AboutPage";
 import ContactPage from "@/pages/ContactPage";
+import LegalPage from "@/pages/LegalPage";
+import { CurrencyProvider } from "@/components/ef/Currency";
 
 const ScrollManager = () => {
   const { pathname, hash } = useLocation();
@@ -27,6 +29,7 @@ const ScrollManager = () => {
 function App() {
   return (
     <div className="App">
+      <CurrencyProvider>
       <BrowserRouter>
         <SmoothScroll />
         <ScrollManager />
@@ -39,12 +42,15 @@ function App() {
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/privacy" element={<LegalPage kind="privacy" />} />
+            <Route path="/terms" element={<LegalPage kind="terms" />} />
             <Route path="*" element={<HomePage />} />
           </Routes>
         </main>
         <Footer />
         <WhatsAppFloat />
       </BrowserRouter>
+      </CurrencyProvider>
       <Toaster position="top-center" richColors />
     </div>
   );

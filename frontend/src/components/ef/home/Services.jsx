@@ -20,7 +20,7 @@ const Lead = ({ s }) => (
     </ul>
     <div className="relative mt-auto flex flex-col gap-6 pt-10 sm:flex-row sm:items-end sm:justify-between">
       <Link to={`/services#${s.id}`} className="btn btn-light" data-testid={`service-learn-more-${s.id}`}>Learn More <ArrowUpRight className="h-4 w-4" /></Link>
-      <div className="h-40 w-full overflow-hidden rounded-2xl sm:h-44 sm:w-64"><img src="/img/pf-crm.jpg" alt="Automation dashboard" loading="lazy" className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" /></div>
+      <div className="h-40 w-full overflow-hidden rounded-2xl sm:h-44 sm:w-64"><img src="/img/svc-ai.jpg" alt="AI chat assistant on a smartphone" loading="lazy" className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" /></div>
     </div>
   </article>
 );
@@ -66,7 +66,7 @@ export const ExtraServices = () => (
       <div className="mt-6 grid gap-5 md:grid-cols-2">
         {EXTRA_SERVICES.map((s, i) => (
           <Reveal key={s.title} delay={i * 0.08} className="h-full">
-            <article className="card-soft flex h-full flex-col p-7" data-testid={`extra-service-${i}`}>
+            <article id={s.id} className="card-soft flex h-full scroll-mt-24 flex-col p-7" data-testid={`extra-service-${i}`}>
               <div className="flex items-center gap-4"><span className="grid h-12 w-12 place-items-center rounded-2xl bg-violet-soft text-violet"><s.icon className="h-5 w-5" /></span><h3 className="text-xl font-bold text-ink sm:text-[22px]">{s.title}</h3></div>
               <p className="mt-3 text-[15px] text-muted2">{s.desc}</p>
               <div className="mt-5 flex flex-wrap gap-1.5">{s.items.map((t) => <Tag key={t}>{t}</Tag>)}</div>

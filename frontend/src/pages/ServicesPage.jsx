@@ -7,7 +7,7 @@ import { WordPressTeaser } from "@/components/ef/home/WordPress";
 import { CORE_SERVICES } from "@/data/site";
 import { contactHref } from "@/lib/scroll";
 
-const IMAGES = { ai: "/img/pf-support.jpg", web: "/img/pf-website.jpg", crm: "/img/pf-lead.jpg", seo: "/img/pf-email.jpg" };
+const IMAGES = { ai: "/img/svc-ai.jpg", web: "/img/svc-web.jpg", crm: "/img/pf-crm.jpg", seo: "/img/svc-seo.jpg" };
 
 const ServiceRow = ({ s, i }) => (
   <section id={s.id} className="scroll-mt-24 border-t border-ink/5 py-16 sm:py-20" data-testid={`services-detail-${s.id}`}>

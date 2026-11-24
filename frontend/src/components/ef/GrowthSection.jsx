@@ -5,6 +5,7 @@ import { Reveal } from "./Reveal";
 import { PricingCard } from "./PricingCard";
 import { SectionHead, PriceNote } from "./PricingSection";
 import { GROWTH_PLANS } from "@/data/pricing";
+import { CurrencyToggle } from "./Currency";
 
 const EQUATION = [
   { icon: MonitorSmartphone, label: "Website" },
@@ -62,6 +63,7 @@ export const GrowthSection = () => (
         <div>
           <SectionHead num="03" dark eyebrow="Flagship · Website + Automation" title={<>Complete <span className="text-gradient">Growth System</span></>} sub="Everything your business needs to establish an online presence and automate its lead management process." />
           <Reveal delay={0.15} className="mt-8"><Equation /></Reveal>
+          <Reveal delay={0.2} className="mt-6"><CurrencyToggle dark testId="currency-growth" /></Reveal>
         </div>
         <Reveal delay={0.1} className="h-full"><PhotoFrame /></Reveal>
       </div>

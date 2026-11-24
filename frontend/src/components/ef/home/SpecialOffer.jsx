@@ -5,6 +5,7 @@ import { Reveal } from "../Reveal";
 import { Money } from "../Money";
 import { SPECIAL_OFFER } from "@/data/pricing";
 import { contactHref } from "@/lib/scroll";
+import { CurrencyToggle } from "../Currency";
 
 const Group = ({ icon: I, title, items, delay }) => (
   <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.1 }} transition={{ duration: 0.8, delay }} className="rounded-[24px] border border-white/10 bg-white/[0.04] p-6 sm:p-7">
@@ -25,7 +26,8 @@ export const SpecialOffer = () => (
                 <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 font-mono text-[11.5px] uppercase tracking-[0.16em] text-tangerine"><Sparkles className="h-3.5 w-3.5" /> Special package</span>
                 <h2 className="mt-6 text-4xl font-extrabold leading-[1.02] sm:text-5xl lg:text-[58px]">Website <span className="text-gradient">+</span> Lead Capture Automation.</h2>
                 <p className="mt-5 max-w-md text-base text-white/75 md:text-lg">We build your website and set up the automations that capture every lead — delivered together as one launch-ready system.</p>
-                <div className="mt-8"><Money inr={SPECIAL_OFFER.inr} big gradient muted="text-white/70" testId="special-offer-price" /></div>
+                <div className="mt-8"><CurrencyToggle dark testId="currency-special" /></div>
+                <div className="mt-6"><Money inr={SPECIAL_OFFER.inr} big gradient muted="text-white/85" testId="special-offer-price" /></div>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link to={contactHref(SPECIAL_OFFER.name)} className="btn btn-primary group" data-testid="special-offer-cta">Claim This Package <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></Link>
                   <Link to="/pricing" className="btn btn-outline-light" data-testid="special-offer-pricing-link">See All Pricing</Link>

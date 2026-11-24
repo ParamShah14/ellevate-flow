@@ -1,4 +1,4 @@
-import { Mail, MessageCircle, CalendarCheck, Phone } from "lucide-react";
+import { Mail, MessageCircle, Phone } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { EnquiryForm } from "./EnquiryForm";
 import { CONTACT_EMAIL, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL } from "@/data/pricing";
@@ -12,11 +12,6 @@ export const ContactSection = () => (
         <p className="eyebrow">Contact · Book a call</p>
         <h2 className="mt-4 text-[34px] font-bold leading-[1.05] text-ink sm:text-5xl">Let's build your <span className="text-gradient">growth engine</span></h2>
         <p className="mt-5 text-base leading-relaxed text-muted2 md:text-lg">Pick a package or book a free consultation — your enquiry lands straight in our inbox.</p>
-        <div className="relative mt-8 h-56 overflow-hidden rounded-[28px] sm:h-64">
-          <img src="/img/studio.jpg" alt="Two people working on a project in a purple-lit studio" className="h-full w-full object-cover object-[50%_35%]" loading="lazy" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-ink/60 to-transparent" />
-          <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1.5 text-[13px] font-medium text-ink backdrop-blur"><CalendarCheck className="h-4 w-4 text-violet" /> Free consultation</span>
-        </div>
         <ol className="mt-8 space-y-3">
           {STEPS.map((s, i) => (
             <li key={s} className="flex items-center gap-4 text-[15px] text-ink/85">

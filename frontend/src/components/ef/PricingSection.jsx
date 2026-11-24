@@ -2,6 +2,7 @@ import { Info } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { PricingCard } from "./PricingCard";
 import { PRICE_NOTE } from "@/data/pricing";
+import { CurrencyToggle } from "./Currency";
 
 export const PriceNote = ({ dark = false, testId }) => (
   <p className={`mx-auto mt-10 flex max-w-3xl items-start justify-center gap-2 text-center text-[13.5px] leading-relaxed ${dark ? "text-white/70" : "text-muted2"}`} data-testid={testId}>
@@ -26,7 +27,8 @@ export const PricingSection = ({ id, num, eyebrow, title, sub, plans, cta, class
   <section id={id} className={`relative py-20 sm:py-28 ${className}`} data-testid={`section-${id}`}>
     <div className="container-x">
       <SectionHead num={num} eyebrow={eyebrow} title={title} sub={sub} />
-      <div className={`mt-14 grid items-stretch gap-6 md:grid-cols-2 ${cols} lg:gap-5`}>
+      <Reveal className="mt-8"><CurrencyToggle testId={`currency-${id}`} /></Reveal>
+      <div className={`mt-12 grid items-stretch gap-6 md:grid-cols-2 ${cols} lg:gap-5`}>
         {plans.map((p, i) => (
           <Reveal key={p.name} delay={i * 0.1} className={`h-full ${p.popular ? "md:col-span-2 md:order-first lg:order-none lg:col-span-1 lg:-my-4" : ""}`}>
             <PricingCard plan={p} index={i} cta={cta} variant={p.popular ? "dark" : "light"} featured={p.popular} />

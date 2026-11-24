@@ -27,18 +27,14 @@ export default function AboutPage() {
     <>
       <PageHeader testId="about-header" eyebrow="About EllevateFlow" title={<>Smarter systems for <span className="text-gradient">growing businesses</span></>} sub="EllevateFlow is an AI automation and digital growth agency. We build AI chatbots, workflow automation, high-performing websites, SEO and lead generation systems." />
       <section className="py-16 sm:py-20" data-testid="about-mission">
-        <div className="container-x grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="container-x grid gap-10 lg:grid-cols-2 lg:items-start">
           <Reveal>
-            <div className="relative h-72 overflow-hidden rounded-[32px] sm:h-96">
-              <img src="/img/studio.jpg" alt="Team working in a purple-lit studio" loading="lazy" className="h-full w-full object-cover object-[50%_35%]" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-ink/50 to-transparent" />
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
             <p className="eyebrow">Our mission</p>
             <h2 className="mt-4 text-3xl font-bold leading-[1.1] text-ink sm:text-[44px]">Help businesses grow with technology that <span className="text-gradient">actually works</span></h2>
-            <p className="mt-5 text-[15.5px] leading-relaxed text-muted2">We combine premium web design with practical AI automation, so every enquiry is captured, followed up and organised — without adding more manual work for your team.</p>
-            <p className="mt-4 font-mono text-[12px] uppercase tracking-[0.16em] text-muted2">Smarter Systems · Stronger Businesses · Faster Growth</p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-[16px] leading-relaxed text-muted2 lg:mt-10">We combine premium web design with practical AI automation, so every enquiry is captured, followed up and organised — without adding more manual work for your team.</p>
+            <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.16em] text-muted2">Smarter Systems · Stronger Businesses · Faster Growth</p>
           </Reveal>
         </div>
       </section>

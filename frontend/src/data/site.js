@@ -45,12 +45,14 @@ export const CORE_SERVICES = [
 
 export const EXTRA_SERVICES = [
   {
+    id: "comm",
     icon: MessagesSquare,
     title: "Customer Communication",
     desc: "Faster responses, automated communication and streamlined support.",
     items: ["WhatsApp Automation", "Automated Appointment Reminders", "Email Marketing Automation", "Customer Support Systems", "Review Collection Automation"],
   },
   {
+    id: "growth",
     icon: TrendingUp,
     title: "Growth & Optimization",
     desc: "Use data, optimisation and better digital experiences to improve performance.",
