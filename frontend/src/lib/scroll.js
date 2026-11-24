@@ -4,14 +4,17 @@ export const setLenis = (l) => {
   lenisInstance = l;
 };
 
+export const scrollTop = () => {
+  if (lenisInstance) lenisInstance.scrollTo(0, { immediate: true });
+  window.scrollTo(0, 0);
+};
+
 export const scrollToId = (id) => {
   const el = document.getElementById(id);
   if (!el) return;
-  if (lenisInstance) lenisInstance.scrollTo(el, { offset: -80, duration: 1.4 });
+  if (lenisInstance) lenisInstance.scrollTo(el, { offset: -90, duration: 1.4 });
   else el.scrollIntoView({ behavior: "smooth" });
 };
 
-export const selectPlan = (plan, intent = "project") => {
-  window.dispatchEvent(new CustomEvent("ef:select-plan", { detail: { plan, intent } }));
-  scrollToId("contact");
-};
+export const contactHref = (plan, intent = "project") =>
+  `/contact?${new URLSearchParams({ ...(plan ? { plan } : {}), intent }).toString()}`;

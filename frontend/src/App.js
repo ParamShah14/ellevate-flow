@@ -1,49 +1,50 @@
 import "@/App.css";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 import { SmoothScroll } from "@/components/ef/SmoothScroll";
 import { Navbar } from "@/components/ef/Navbar";
-import { Hero } from "@/components/ef/Hero";
-import { Marquee } from "@/components/ef/Marquee";
-import { PricingSection } from "@/components/ef/PricingSection";
-import { GrowthSection } from "@/components/ef/GrowthSection";
-import { CustomQuote } from "@/components/ef/CustomQuote";
-import { ContactSection } from "@/components/ef/ContactSection";
 import { Footer, WhatsAppFloat } from "@/components/ef/Footer";
-import { WEBSITE_PLANS, AUTOMATION_PLANS } from "@/data/pricing";
+import { scrollTop, scrollToId } from "@/lib/scroll";
+import HomePage from "@/pages/HomePage";
+import ServicesPage from "@/pages/ServicesPage";
+import PortfolioPage from "@/pages/PortfolioPage";
+import PricingPage from "@/pages/PricingPage";
+import AboutPage from "@/pages/AboutPage";
+import ContactPage from "@/pages/ContactPage";
+
+const ScrollManager = () => {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    scrollTop();
+    if (!hash) return undefined;
+    const t = setTimeout(() => scrollToId(hash.slice(1)), 300);
+    return () => clearTimeout(t);
+  }, [pathname, hash]);
+  return null;
+};
 
 function App() {
   return (
     <div className="App">
-      <SmoothScroll />
-      <Navbar />
-      <main id="main">
-        <Hero />
-        <Marquee />
-        <PricingSection
-          id="websites"
-          num="01"
-          eyebrow="Website development"
-          title={<>Website Development <span className="text-gradient">Pricing</span></>}
-          sub="Professional websites designed to establish your online presence and turn visitors into customers."
-          plans={WEBSITE_PLANS}
-          cta="Get Started"
-        />
-        <PricingSection
-          id="automation"
-          num="02"
-          eyebrow="AI automation services"
-          title={<>AI Automation <span className="text-gradient">Pricing</span></>}
-          sub="Automate repetitive tasks, capture more opportunities and make your business operations more efficient."
-          plans={AUTOMATION_PLANS}
-          cta="Automate My Business"
-          className="border-t border-ink/5 bg-white"
-        />
-        <GrowthSection />
-        <CustomQuote />
-        <ContactSection />
-      </main>
-      <Footer />
-      <WhatsAppFloat />
+      <BrowserRouter>
+        <SmoothScroll />
+        <ScrollManager />
+        <Navbar />
+        <main id="main">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<HomePage />} />
+          </Routes>
+        </main>
+        <Footer />
+        <WhatsAppFloat />
+      </BrowserRouter>
       <Toaster position="top-center" richColors />
     </div>
   );

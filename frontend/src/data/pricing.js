@@ -1,6 +1,8 @@
 export const SITE_URL = "https://ellevate-growth--3lb5jmvz.preview.emergentagent.com";
 export const CONTACT_EMAIL = "hello.ellevateflow@gmail.com";
 export const WHATSAPP_URL = "https://wa.me/918401427743?text=Hi%20EllevateFlow%2C%20I%27d%20like%20to%20discuss%20a%20project.";
+export const PHONE_DISPLAY = "+91 84014 27743";
+export const PHONE_TEL = "tel:+918401427743";
 
 export const PRICE_NOTE =
   "All prices are one-time project fees. Hosting, domain, third-party subscriptions and API usage charges are billed separately.";
@@ -8,7 +10,7 @@ export const PRICE_NOTE =
 export const WEBSITE_PLANS = [
   {
     name: "Starter Website",
-    price: "₹12,999",
+    inr: 12999,
     tagline: "A clean, professional site to get your business online properly.",
     delivery: "5–7 working days",
     features: [
@@ -24,7 +26,7 @@ export const WEBSITE_PLANS = [
   },
   {
     name: "Business Website",
-    price: "₹24,999",
+    inr: 24999,
     popular: true,
     tagline: "A customised site built to capture leads and grow with you.",
     delivery: "10–14 working days",
@@ -42,7 +44,7 @@ export const WEBSITE_PLANS = [
   },
   {
     name: "Advanced Website",
-    price: "₹44,999",
+    inr: 44999,
     tagline: "A premium, fully custom experience with bookings and CRM.",
     delivery: "15–25 working days",
     features: [
@@ -62,7 +64,7 @@ export const WEBSITE_PLANS = [
 export const AUTOMATION_PLANS = [
   {
     name: "Starter Automation",
-    price: "₹9,999",
+    inr: 9999,
     tagline: "Your first workflow: every website lead, captured and tracked.",
     delivery: "3–5 working days",
     features: [
@@ -76,7 +78,7 @@ export const AUTOMATION_PLANS = [
   },
   {
     name: "Growth Automation",
-    price: "₹19,999",
+    inr: 19999,
     popular: true,
     tagline: "Leads from every source, followed up without lifting a finger.",
     delivery: "7–10 working days",
@@ -92,7 +94,7 @@ export const AUTOMATION_PLANS = [
   },
   {
     name: "Advanced AI Automation",
-    price: "₹34,999",
+    inr: 34999,
     tagline: "AI that qualifies, follows up and books meetings for you.",
     delivery: "10–20 working days",
     features: [
@@ -110,7 +112,7 @@ export const AUTOMATION_PLANS = [
 export const GROWTH_PLANS = [
   {
     name: "Essential Growth",
-    price: "₹24,999",
+    inr: 24999,
     tagline: "A website and lead notifications, set up together from day one.",
     delivery: "7–12 working days",
     features: [
@@ -125,7 +127,7 @@ export const GROWTH_PLANS = [
   },
   {
     name: "Complete Growth System",
-    price: "₹39,999",
+    inr: 39999,
     popular: true,
     tagline: "Website + lead automation, built as one system that works around the clock.",
     delivery: "12–18 working days",
@@ -144,7 +146,7 @@ export const GROWTH_PLANS = [
   },
   {
     name: "Premium Growth System",
-    price: "₹59,999",
+    inr: 59999,
     tagline: "A premium site with AI qualification, bookings and custom workflows.",
     delivery: "18–25 working days",
     features: [
@@ -162,8 +164,44 @@ export const GROWTH_PLANS = [
   },
 ];
 
+export const WORDPRESS_PLANS = [
+  {
+    name: "WordPress Starter",
+    inr: 12999,
+    tagline: "A simple, professional WordPress site to get started.",
+    features: ["3–5 pages", "Mobile-responsive design", "Contact form", "Basic SEO setup", "Social media integration"],
+  },
+  {
+    name: "WordPress Professional",
+    inr: 19999,
+    tagline: "A customised WordPress site built to bring in enquiries.",
+    features: ["5–8 pages", "Customized design", "Advanced contact forms", "WhatsApp integration", "On-page SEO", "Speed optimization"],
+  },
+  {
+    name: "WordPress Premium",
+    inr: 29999,
+    tagline: "A premium WordPress build with bookings and advanced features.",
+    features: ["8–12 pages", "Premium custom design", "Advanced functionality", "Booking or appointment integration", "SEO optimization", "Performance optimization"],
+  },
+  {
+    name: "E-commerce",
+    inr: 39999,
+    tagline: "A WooCommerce store ready to take orders online.",
+    features: ["WooCommerce setup", "Product and category pages", "Payment gateway integration", "Cart and checkout", "Order management"],
+  },
+];
+
+export const SPECIAL_OFFER = {
+  name: "Website + Lead Capture Offer",
+  inr: 39000,
+  website: ["Professional custom-designed website", "Fully responsive on every device", "Speed-optimised with on-page SEO setup", "Contact & enquiry forms that convert"],
+  automation: ["Lead capture from website forms into one place", "Instant lead notifications", "Automated reply to every enquiry", "Leads organised in Google Sheets or CRM"],
+};
+
 export const ALL_PACKAGES = [
+  SPECIAL_OFFER.name,
   ...WEBSITE_PLANS.map((p) => p.name),
+  ...WORDPRESS_PLANS.map((p) => p.name),
   ...AUTOMATION_PLANS.map((p) => p.name),
   ...GROWTH_PLANS.map((p) => p.name),
   "Custom Quote",

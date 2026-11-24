@@ -1,7 +1,7 @@
-import { Mail, MessageCircle, CalendarCheck } from "lucide-react";
+import { Mail, MessageCircle, CalendarCheck, Phone } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { EnquiryForm } from "./EnquiryForm";
-import { CONTACT_EMAIL, WHATSAPP_URL } from "@/data/pricing";
+import { CONTACT_EMAIL, WHATSAPP_URL, PHONE_DISPLAY, PHONE_TEL } from "@/data/pricing";
 
 const STEPS = ["Send your enquiry or book a free call", "A short call to understand your goals", "A clear scope and fixed quote"];
 
@@ -24,8 +24,9 @@ export const ContactSection = () => (
             </li>
           ))}
         </ol>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-8 flex flex-wrap gap-3">
           <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn-ghost" data-testid="contact-email-link"><Mail className="h-4 w-4" /> {CONTACT_EMAIL}</a>
+          <a href={PHONE_TEL} className="btn btn-ghost" data-testid="contact-phone-link"><Phone className="h-4 w-4" /> {PHONE_DISPLAY}</a>
           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" data-testid="contact-whatsapp-link"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
         </div>
       </Reveal>

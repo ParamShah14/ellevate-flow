@@ -35,6 +35,8 @@ PACKAGES = {
     "Starter Automation", "Growth Automation", "Advanced AI Automation",
     "Essential Growth", "Complete Growth System", "Premium Growth System",
     "Custom Quote", "Not sure yet",
+    "WordPress Starter", "WordPress Professional", "WordPress Premium", "E-commerce",
+    "Website + Lead Capture Offer",
 }
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')

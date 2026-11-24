@@ -14,6 +14,13 @@ Build three premium pricing sections (Website Development, AI Automation, Comple
 - Custom quote band, contact section with consultation/project toggle; every CTA preselects its package in the form
 - Original SVG logo mark + favicon, WhatsApp float (number from live site), footer
 
+## Implemented (2026-11-24, iteration 2) — full multi-page site
+- Routes: / (home), /services, /portfolio, /pricing, /about, /contact; all CTAs link to /contact?plan=…&intent=… and preselect the package
+- Home: hero, 4 prioritised core services bento (AI Automation, Website Dev, CRM & Lead Mgmt, SEO & Digital Growth), "Also available" services, ₹39,000 Website + Lead Capture special offer, WordPress teaser, process, pricing preview, final CTA
+- WordPress pricing (Starter/Professional/Premium/E-commerce) on /pricing
+- All prices shown in INR + approx USD (rate 88 INR/USD in lib/currency.js, rounded to …9)
+- Floating WhatsApp button → wa.me/918401427743; phone + email in contact & footer; no social links
+
 ## Backlog
 - P1: Merge these sections into the live EllevateFlow codebase (separate project)
 - P1: Admin view of enquiries

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
@@ -28,15 +29,19 @@ export const EnquiryForm = () => {
   const [done, setDone] = useState(false);
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
+  const [params] = useSearchParams();
+
   useEffect(() => {
-    const onSelect = (e) => {
-      const { plan, intent } = e.detail ?? {};
-      setDone(false);
-      setForm((f) => ({ ...f, package: ALL_PACKAGES.includes(plan) ? plan : f.package, intent: intent ?? f.intent }));
-    };
-    window.addEventListener("ef:select-plan", onSelect);
-    return () => window.removeEventListener("ef:select-plan", onSelect);
-  }, []);
+    const plan = params.get("plan");
+    const intent = params.get("intent");
+    if (!plan && !intent) return;
+    setDone(false);
+    setForm((f) => ({
+      ...f,
+      package: ALL_PACKAGES.includes(plan) ? plan : f.package,
+      intent: intent === "project" || intent === "consultation" ? intent : f.intent,
+    }));
+  }, [params]);
 
   const submit = async (e) => {
     e.preventDefault();

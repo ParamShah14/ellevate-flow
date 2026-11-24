@@ -1,12 +1,14 @@
 import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
+import { Link } from "react-router-dom";
 import { MaskedLines } from "./Reveal";
-import { scrollToId, selectPlan } from "@/lib/scroll";
+import { scrollToId, contactHref } from "@/lib/scroll";
+import { fmtINR, fmtUSD } from "@/lib/currency";
 
 const CHIPS = [
-  { id: "websites", label: "Website Development", from: "₹12,999", n: "01", cls: "bg-white text-ink", z: 0 },
-  { id: "automation", label: "AI Automation", from: "₹9,999", n: "02", cls: "bg-ink text-white", z: 60 },
-  { id: "growth", label: "Complete Growth System", from: "₹24,999", n: "03", cls: "bg-brand text-white", z: 120 },
+  { id: "websites", label: "Website Development", inr: 12999, n: "01", cls: "bg-white text-ink", z: 0 },
+  { id: "automation", label: "AI Automation", inr: 9999, n: "02", cls: "bg-ink text-white", z: 60 },
+  { id: "growth", label: "Complete Growth System", inr: 24999, n: "03", cls: "bg-brand text-white", z: 120 },
 ];
 
 const Fade = ({ delay, children, className = "" }) => (
@@ -43,7 +45,7 @@ const TiltStack = () => {
           >
             <div>
               <p className="font-mono text-[11.5px] uppercase tracking-[0.16em] opacity-75">{c.n} · Starting at</p>
-              <p className="mt-2 font-display text-3xl font-bold sm:text-4xl">{c.from}</p>
+              <p className="mt-2 font-display text-3xl font-bold sm:text-4xl">{fmtINR(c.inr)} <span className="font-mono text-[14px] font-normal opacity-75">≈ {fmtUSD(c.inr)}</span></p>
               <p className="mt-1 text-[14.5px] font-medium opacity-85">{c.label}</p>
             </div>
             <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-current/20 transition-transform duration-500 group-hover:rotate-45">
@@ -56,7 +58,7 @@ const TiltStack = () => {
   );
 };
 
-export const Hero = () => {
+export const PricingHero = () => {
   const { scrollY } = useScroll();
   const yGlow = useTransform(scrollY, [0, 600], [0, 140]);
   return (
@@ -71,13 +73,13 @@ export const Hero = () => {
           </h1>
           <Fade delay={0.55}>
             <p className="mt-7 max-w-xl text-base leading-relaxed text-muted2 md:text-lg">
-              Three ways to work with EllevateFlow — a website that converts, automations that never let a lead slip, or the Complete Growth System that does both.
+              Website development, WordPress, AI automation, or the Complete Growth System that does it all. Every price shown in INR and USD.
             </p>
           </Fade>
           <Fade delay={0.7} className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <button type="button" onClick={() => selectPlan("Not sure yet", "consultation")} className="btn btn-primary group" data-testid="hero-book-consultation-btn">
+            <Link to={contactHref("Not sure yet", "consultation")} className="btn btn-primary group" data-testid="hero-book-consultation-btn">
               Book a Free Consultation <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </button>
+            </Link>
             <button type="button" onClick={() => scrollToId("websites")} className="btn btn-ghost group" data-testid="hero-compare-btn">
               Compare Packages <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
             </button>

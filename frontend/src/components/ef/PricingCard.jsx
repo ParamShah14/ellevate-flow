@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Check, Clock3, Sparkles, ArrowRight } from "lucide-react";
-import { selectPlan } from "@/lib/scroll";
+import { contactHref } from "@/lib/scroll";
+import { Money } from "./Money";
 
 const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
@@ -18,11 +20,8 @@ const STYLES = {
 
 const Price = ({ plan, s, gradient }) => (
   <div className={`my-6 border-y py-6 ${s.line}`}>
-    <p className={`font-mono text-[11.5px] uppercase tracking-[0.16em] ${s.muted}`}>Starting at</p>
-    <p className="mt-2 flex flex-wrap items-baseline gap-x-2" data-testid={`price-${slug(plan.name)}`}>
-      <span className={`font-display text-[44px] font-bold leading-none sm:text-5xl ${gradient ? "text-gradient" : ""}`}>{plan.price}</span>
-      <span className={`text-sm font-medium ${s.muted}`}>one-time</span>
-    </p>
+    <p className={`mb-2 font-mono text-[11.5px] uppercase tracking-[0.16em] ${s.muted}`}>Starting at</p>
+    <Money inr={plan.inr} gradient={gradient} muted={s.muted} testId={`price-${slug(plan.name)}`} />
   </div>
 );
 
@@ -58,14 +57,16 @@ export const PricingCard = ({ plan, index, cta, variant = "light", featured = fa
           </li>
         ))}
       </ul>
-      <div className={`relative mb-7 mt-auto flex items-center gap-2.5 rounded-2xl border px-4 py-3 text-[14px] ${s.line}`} data-testid={`delivery-${id}`}>
-        <Clock3 className={`h-4 w-4 ${s.label}`} />
-        <span className={s.muted}>Delivery:</span>
-        <span className="font-semibold">{plan.delivery}</span>
-      </div>
-      <button type="button" onClick={() => selectPlan(plan.name)} className="btn btn-primary group relative w-full" data-testid={`cta-${id}`}>
+      {plan.delivery ? (
+        <div className={`relative mb-7 mt-auto flex items-center gap-2.5 rounded-2xl border px-4 py-3 text-[14px] ${s.line}`} data-testid={`delivery-${id}`}>
+          <Clock3 className={`h-4 w-4 ${s.label}`} />
+          <span className={s.muted}>Delivery:</span>
+          <span className="font-semibold">{plan.delivery}</span>
+        </div>
+      ) : <div className="mt-auto" />}
+      <Link to={contactHref(plan.name)} className="btn btn-primary group relative w-full" data-testid={`cta-${id}`}>
         {cta} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-      </button>
+      </Link>
     </motion.article>
   );
 };
