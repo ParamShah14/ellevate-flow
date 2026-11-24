@@ -1,55 +1,50 @@
-import { useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    // The marker attribute below lets the platform probe detect the stock splash — remove it with this page
-    <div data-emergent-splash>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import { Toaster } from "@/components/ui/sonner";
+import { SmoothScroll } from "@/components/ef/SmoothScroll";
+import { Navbar } from "@/components/ef/Navbar";
+import { Hero } from "@/components/ef/Hero";
+import { Marquee } from "@/components/ef/Marquee";
+import { PricingSection } from "@/components/ef/PricingSection";
+import { GrowthSection } from "@/components/ef/GrowthSection";
+import { CustomQuote } from "@/components/ef/CustomQuote";
+import { ContactSection } from "@/components/ef/ContactSection";
+import { Footer, WhatsAppFloat } from "@/components/ef/Footer";
+import { WEBSITE_PLANS, AUTOMATION_PLANS } from "@/data/pricing";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <SmoothScroll />
+      <Navbar />
+      <main id="main">
+        <Hero />
+        <Marquee />
+        <PricingSection
+          id="websites"
+          num="01"
+          eyebrow="Website development"
+          title={<>Website Development <span className="text-gradient">Pricing</span></>}
+          sub="Professional websites designed to establish your online presence and turn visitors into customers."
+          plans={WEBSITE_PLANS}
+          cta="Get Started"
+        />
+        <PricingSection
+          id="automation"
+          num="02"
+          eyebrow="AI automation services"
+          title={<>AI Automation <span className="text-gradient">Pricing</span></>}
+          sub="Automate repetitive tasks, capture more opportunities and make your business operations more efficient."
+          plans={AUTOMATION_PLANS}
+          cta="Automate My Business"
+          className="border-t border-ink/5 bg-white"
+        />
+        <GrowthSection />
+        <CustomQuote />
+        <ContactSection />
+      </main>
+      <Footer />
+      <WhatsAppFloat />
+      <Toaster position="top-center" richColors />
     </div>
   );
 }

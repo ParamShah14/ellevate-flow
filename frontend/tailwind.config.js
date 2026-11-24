@@ -14,7 +14,19 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
       },
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans Variable"', '"Plus Jakarta Sans"', 'sans-serif'],
+        display: ['"Bricolage Grotesque Variable"', '"Bricolage Grotesque"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace']
+      },
       colors: {
+        ink: '#150B2E',
+        violet: { DEFAULT: '#5B1FA6', soft: '#EFE7FB' },
+        magenta: '#B02FB0',
+        coral: '#FF5A5F',
+        tangerine: '#FF8A3D',
+        canvas: '#F6F4FB',
+        muted2: '#5E5873',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -57,6 +69,7 @@ module.exports = {
         }
       },
       keyframes: {
+        marquee: { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-50%)' } },
         'accordion-down': {
           from: {
             height: '0'
@@ -75,6 +88,7 @@ module.exports = {
         }
       },
       animation: {
+        marquee: 'marquee 60s linear infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out'
       }

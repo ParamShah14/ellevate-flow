@@ -1,92 +1,138 @@
 import asyncio
+import time
+from collections import defaultdict
 from contextlib import suppress
-from fastapi import FastAPI, APIRouter, Query
+from html import escape
+from fastapi import FastAPI, APIRouter, HTTPException, Request
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo import ASCENDING, DESCENDING, IndexModel
+from pymongo import DESCENDING, IndexModel
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
+from pydantic import BaseModel, Field, EmailStr, field_validator
+from typing import Literal, Optional
 import uuid
 from datetime import datetime, timezone
-
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
+from email_service import send_email, EMAIL_FROM_NAME  # noqa: E402
+
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
+OWNER_EMAIL = os.environ['OWNER_EMAIL']
 
-# One entry per collection: every field a route filters, sorts or dedupes on. Add the index in the same edit as the query.
 INDEXES: dict[str, list[IndexModel]] = {
-    "status_checks": [
-        IndexModel([("id", ASCENDING)], name="id", unique=True),
-        IndexModel([("timestamp", DESCENDING)], name="timestamp_desc"),
-    ],
+    "enquiries": [IndexModel([("created_at", DESCENDING)], name="created_at_desc")],
 }
+
+PACKAGES = {
+    "Starter Website", "Business Website", "Advanced Website",
+    "Starter Automation", "Growth Automation", "Advanced AI Automation",
+    "Essential Growth", "Complete Growth System", "Premium Growth System",
+    "Custom Quote", "Not sure yet",
+}
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 async def ensure_indexes() -> None:
     for collection, models in INDEXES.items():
-        for model in models:  # one at a time so a bad spec skips only itself
+        for model in models:
             try:
                 await db[collection].create_indexes([model])
-            except Exception as exc:  # never block boot on an index; the log line names what to fix
-                logging.getLogger(__name__).error("ensure_indexes(%s.%s): %s", collection, model.document["name"], exc)
+            except Exception as exc:
+                logger.error("ensure_indexes(%s.%s): %s", collection, model.document["name"], exc)
 
-# Create the main app without a prefix
 app = FastAPI()
-
-# Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+_hits: dict[str, list[float]] = defaultdict(list)
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
+def _rate_limited(ip: str, limit: int = 5, window: int = 600) -> bool:
+    now = time.time()
+    _hits[ip] = [t for t in _hits[ip] if now - t < window]
+    if len(_hits[ip]) >= limit:
+        return True
+    _hits[ip].append(now)
+    return False
 
-# Add your routes to the router instead of directly to app
+
+class EnquiryIn(BaseModel):
+    name: str = Field(min_length=2, max_length=80)
+    email: EmailStr
+    phone: Optional[str] = Field(default=None, max_length=30)
+    company: Optional[str] = Field(default=None, max_length=120)
+    package: str
+    intent: Literal["consultation", "project"]
+    message: Optional[str] = Field(default=None, max_length=2000)
+
+    @field_validator("package")
+    @classmethod
+    def known_package(cls, v: str) -> str:
+        if v not in PACKAGES:
+            raise ValueError("Unknown package")
+        return v
+
+
+def _row(label: str, value: str) -> str:
+    return (f'<tr><td style="padding:8px 0;color:#5E5873;font-size:13px;width:140px;vertical-align:top">{label}</td>'
+            f'<td style="padding:8px 0;color:#150B2E;font-size:15px">{value}</td></tr>')
+
+
+def _enquiry_html(e: EnquiryIn) -> str:
+    intent = "Free consultation request" if e.intent == "consultation" else "Project enquiry"
+    email = escape(e.email)
+    rows = _row("Name", escape(e.name)) + _row("Email", f'<a href="mailto:{email}" style="color:#5B1FA6">{email}</a>')
+    if e.phone:
+        rows += _row("Phone", escape(e.phone))
+    if e.company:
+        rows += _row("Business", escape(e.company))
+    rows += _row("Package", escape(e.package)) + _row("Type", intent)
+    msg = escape(e.message or "—").replace("\n", "<br>")
+    return (
+        '<table role="presentation" width="100%" style="background:#F6F4FB;padding:24px 0">'
+        '<tr><td align="center"><table role="presentation" width="560" style="background:#ffffff;border-radius:16px;'
+        'padding:28px;font-family:Arial,sans-serif">'
+        f'<tr><td style="font-size:12px;letter-spacing:2px;color:#8E2BB3;text-transform:uppercase">{intent}</td></tr>'
+        f'<tr><td style="font-size:22px;font-weight:bold;color:#150B2E;padding:6px 0 16px">New enquiry: {escape(e.package)}</td></tr>'
+        f'<tr><td><table role="presentation" width="100%">{rows}</table></td></tr>'
+        '<tr><td style="padding-top:16px;font-size:13px;color:#5E5873">Message</td></tr>'
+        f'<tr><td style="padding-top:6px;font-size:15px;color:#150B2E;line-height:1.5">{msg}</td></tr>'
+        f'<tr><td style="padding-top:24px;font-size:12px;color:#888">Sent by the {escape(EMAIL_FROM_NAME)} website pricing page.</td></tr>'
+        '</table></td></tr></table>'
+    )
+
+
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "EllevateFlow API"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks(limit: int = Query(20, ge=1, le=100)):
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).sort("timestamp", -1).limit(limit).to_list(limit)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+@api_router.post("/enquiries")
+async def create_enquiry(payload: EnquiryIn, request: Request):
+    ip = (request.headers.get("x-forwarded-for") or (request.client.host if request.client else "")).split(",")[0].strip()
+    if _rate_limited(ip):
+        raise HTTPException(status_code=429, detail="Too many enquiries. Please try again in a few minutes.")
+    enquiry_id = str(uuid.uuid4())
+    doc = {"id": enquiry_id, **payload.model_dump(), "created_at": datetime.now(timezone.utc).isoformat()}
+    await db.enquiries.insert_one(doc)
+    subject = f"New {'consultation' if payload.intent == 'consultation' else 'project'} enquiry: {payload.package} from {payload.name}".replace("\n", " ")
+    email_id = None
+    try:
+        email_id = await send_email(to=OWNER_EMAIL, subject=subject, html=_enquiry_html(payload))
+    except Exception as exc:
+        logger.error("Enquiry email error: %s", exc)
+    await db.enquiries.update_one({"id": enquiry_id}, {"$set": {"email_sent": bool(email_id)}})
+    return {"ok": True, "id": enquiry_id, "email_sent": bool(email_id)}
 
-# Include the router in the main app
+
 app.include_router(api_router)
 
 app.add_middleware(
@@ -97,20 +143,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 @app.on_event("startup")
 async def start_index_build():
-    app.state.index_task = asyncio.create_task(ensure_indexes())  # background: a big index build must not block boot
+    app.state.index_task = asyncio.create_task(ensure_indexes())
+
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
-    app.state.index_task.cancel()  # stop a build still running before its client closes
+    app.state.index_task.cancel()
     with suppress(asyncio.CancelledError):
         await app.state.index_task
     client.close()
