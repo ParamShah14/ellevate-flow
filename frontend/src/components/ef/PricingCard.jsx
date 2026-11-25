@@ -25,17 +25,6 @@ const Price = ({ plan, s, gradient }) => (
   </div>
 );
 
-const Specs = ({ plan, s, id }) => (
-  <dl className="relative mb-6 grid grid-cols-2 gap-2" data-testid={`specs-${id}`}>
-    {(plan.specs ?? []).map(([k, v]) => (
-      <div key={k} className={`rounded-xl px-3 py-2.5 odd:last:col-span-2 ${s.cell}`}>
-        <dt className={`font-mono text-[11px] uppercase tracking-wider ${s.muted}`}>{k}</dt>
-        <dd className="mt-0.5 text-[13.5px] font-semibold leading-snug">{v}</dd>
-      </div>
-    ))}
-  </dl>
-);
-
 export const PricingCard = ({ plan, index, cta, variant = "light", featured = false }) => {
   const s = STYLES[variant];
   const id = slug(plan.name);
@@ -60,7 +49,6 @@ export const PricingCard = ({ plan, index, cta, variant = "light", featured = fa
       <h3 className="relative mt-5 text-2xl font-bold sm:text-[26px]">{plan.name}</h3>
       <p className={`relative mt-2 text-[15px] leading-relaxed ${s.muted}`}>{plan.tagline}</p>
       <Price plan={plan} s={s} gradient={variant === "light"} />
-      <Specs plan={plan} s={s} id={id} />
       <ul className="relative mb-6 space-y-3 text-[15px]">
         {plan.features.map((f) => (
           <li key={f} className="flex items-start gap-3">
