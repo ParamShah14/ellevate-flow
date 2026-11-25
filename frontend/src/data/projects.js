@@ -1,7 +1,7 @@
-// Add liveUrl, videoUrl (YouTube/Vimeo/Loom embed URL) and screenshots (["/img/..."]) per project when ready.
+// Add liveUrl per project when ready.
 export const PROJECT_FILTERS = ["All", "AI Automation", "Website Development", "Lead Generation", "Customer Communication"];
 
-const p = (o) => ({ liveUrl: "", videoUrl: "", screenshots: [], ...o });
+const p = (o) => ({ liveUrl: "", ...o });
 
 export const PROJECTS = [
   p({

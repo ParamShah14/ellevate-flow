@@ -1,5 +1,5 @@
 import { Link, useParams, Navigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Check, ExternalLink, ImageIcon, PlayCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ExternalLink } from "lucide-react";
 import { Reveal } from "@/components/ef/Reveal";
 import { FinalCta } from "@/components/ef/home/Blocks";
 import { PROJECTS } from "@/data/projects";
@@ -12,27 +12,6 @@ const Block = ({ title, children, testId }) => (
       <div className="mt-4 text-[15.5px] leading-relaxed text-ink/85">{children}</div>
     </div>
   </Reveal>
-);
-
-const Placeholder = ({ icon: I, text, testId }) => (
-  <div className="grid aspect-video place-items-center rounded-2xl border-2 border-dashed border-ink/15 bg-canvas text-center" data-testid={testId}>
-    <div className="px-4"><I className="mx-auto h-8 w-8 text-violet" /><p className="mt-2 text-[14px] font-medium text-muted2">{text}</p></div>
-  </div>
-);
-
-const Media = ({ p }) => (
-  <div className="grid gap-5 lg:grid-cols-2">
-    <Block title="Screenshots" testId="project-screenshots">
-      {p.screenshots.length ? (
-        <div className="grid gap-3 sm:grid-cols-2">{p.screenshots.map((s) => <img key={s} src={s} alt={`${p.title} screenshot`} className="aspect-video w-full rounded-xl object-cover" loading="lazy" />)}</div>
-      ) : <Placeholder icon={ImageIcon} text="Screenshots coming soon" testId="screenshots-placeholder" />}
-    </Block>
-    <Block title="Video walkthrough" testId="project-video">
-      {p.videoUrl ? (
-        <iframe src={p.videoUrl} title={`${p.title} walkthrough`} className="aspect-video w-full rounded-xl" allow="autoplay; fullscreen" allowFullScreen />
-      ) : <Placeholder icon={PlayCircle} text="Video walkthrough coming soon" testId="video-placeholder" />}
-    </Block>
-  </div>
 );
 
 export default function ProjectPage() {
@@ -75,7 +54,6 @@ export default function ProjectPage() {
               <div className="flex flex-wrap gap-2">{p.tools.map((t) => <span key={t} className="rounded-full bg-ink px-3.5 py-1.5 text-[13.5px] font-medium text-white">{t}</span>)}</div>
             </Block>
           </div>
-          <Media p={p} />
           <Link to={`/portfolio/${next.id}`} className="group card-soft flex items-center justify-between gap-4 p-6 sm:p-8" data-testid="project-next-link">
             <div><p className="font-mono text-[11.5px] uppercase tracking-wider text-muted2">Next project</p><p className="mt-1 font-display text-xl font-bold text-ink sm:text-2xl">{next.title}</p></div>
             <ArrowRight className="h-6 w-6 shrink-0 text-violet transition-transform group-hover:translate-x-1" />
