@@ -76,13 +76,4 @@ export const VALUES = [
   { t: "Growth-Focused Execution", d: "Every build is tied to a business goal you care about." },
 ];
 
-export const PROJECT_FILTERS = ["All", "AI Automation", "Websites", "Lead Generation", "Customer Communication"];
-
-export const PROJECTS = [
-  { id: "ai-lead", cat: "AI Automation", tag: "Concept Project", img: "/img/pf-lead.jpg", title: "AI-Powered Lead Management System", desc: "Incoming leads are scored by AI, routed to the right person and logged in the CRM automatically." },
-  { id: "booking", cat: "Customer Communication", tag: "Demo Project", img: "/img/pf-booking.jpg", title: "Automated Appointment Booking System", desc: "Online booking with calendar sync, confirmation messages and reminders before each appointment." },
-  { id: "website", cat: "Websites", tag: "Concept Project", img: "/img/pf-website.jpg", title: "Business Website Development", desc: "A fast, responsive business website with clear service pages and enquiry-focused structure." },
-  { id: "support", cat: "AI Automation", tag: "Demo Project", img: "/img/pf-support.jpg", title: "AI Customer Support Assistant", desc: "An AI assistant trained on business FAQs that answers common questions and hands off to a human when needed." },
-  { id: "email", cat: "Customer Communication", tag: "Concept Project", img: "/img/pf-email.jpg", title: "Automated Email Follow-Up System", desc: "Timed, personalised follow-up sequences that stop automatically when a contact replies." },
-  { id: "crm", cat: "Lead Generation", tag: "Demo Project", img: "/img/pf-crm.jpg", title: "Lead Capture & CRM Automation", desc: "Forms, ads and chat enquiries flow into one CRM pipeline with enrichment and instant alerts." },
-];
+export { PROJECT_FILTERS, PROJECTS } from "./projects";

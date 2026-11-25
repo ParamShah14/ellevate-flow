@@ -8,7 +8,7 @@ import { usePrice, CurrencyToggle } from "./Currency";
 const CHIPS = [
   { id: "websites", label: "Website Development", inr: 12999, n: "01", cls: "bg-white text-ink", z: 0 },
   { id: "automation", label: "AI Automation", inr: 9999, n: "02", cls: "bg-ink text-white", z: 60 },
-  { id: "growth", label: "Complete Growth System", inr: 24999, n: "03", cls: "bg-brand text-white", z: 120 },
+  { id: "growth", label: "Complete Growth System", inr: 39999, n: "03", cls: "bg-brand text-white", z: 120 },
 ];
 
 const Fade = ({ delay, children, className = "" }) => (

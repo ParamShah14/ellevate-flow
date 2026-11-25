@@ -4,7 +4,8 @@ import { MonitorSmartphone, Workflow, Rocket, Plus, Equal } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { PricingCard } from "./PricingCard";
 import { SectionHead, PriceNote } from "./PricingSection";
-import { GROWTH_PLANS } from "@/data/pricing";
+import { GROWTH_PLANS, AUTOMATION_NOTE } from "@/data/pricing";
+import { CompareTable, CustomCta } from "./PricingExtras";
 import { CurrencyToggle } from "./Currency";
 
 const EQUATION = [
@@ -49,7 +50,7 @@ const Featured = ({ plan, index }) => (
       <PricingCard plan={plan} index={index} cta="Get My Growth System" variant="dark" featured />
     </div>
     <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-white px-4 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-ink shadow-lg" data-testid="flagship-label">
-      Flagship package
+      Recommended package
     </span>
   </div>
 );
@@ -74,7 +75,9 @@ export const GrowthSection = () => (
           </Reveal>
         ))}
       </div>
-      <PriceNote dark testId="price-note-growth" />
+      <CompareTable dark plans={GROWTH_PLANS} testId="compare-growth" />
+      <PriceNote dark testId="price-note-growth" extra={AUTOMATION_NOTE} />
+      <CustomCta dark testId="custom-cta-growth" />
     </div>
   </section>
 );

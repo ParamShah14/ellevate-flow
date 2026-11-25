@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { PageHeader, FinalCta } from "@/components/ef/home/Blocks";
 import { PROJECTS, PROJECT_FILTERS } from "@/data/site";
-import { contactHref } from "@/lib/scroll";
 
 const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
@@ -22,15 +21,18 @@ const Filters = ({ value, onChange }) => (
 );
 
 const Project = ({ p }) => (
-  <motion.article layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="group flex flex-col" data-testid={`project-card-${p.id}`}>
-    <div className="relative overflow-hidden rounded-[28px] bg-violet-soft">
-      <div className="aspect-[4/3]"><img src={p.img} alt={p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.06]" /></div>
-      <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 font-mono text-[11px] font-medium uppercase tracking-wider text-ink backdrop-blur">{p.tag}</span>
-    </div>
-    <p className="mt-5 font-mono text-[11.5px] uppercase tracking-[0.14em] text-violet">{p.cat}</p>
-    <h3 className="mt-2 text-xl font-bold text-ink sm:text-2xl">{p.title}</h3>
-    <p className="mt-2 text-[15px] leading-relaxed text-muted2">{p.desc}</p>
-    <Link to={contactHref("Not sure yet")} className="mt-4 inline-flex w-fit items-center gap-1.5 text-[14.5px] font-semibold text-ink underline decoration-coral/60 decoration-2 underline-offset-[6px] hover:text-violet" data-testid={`project-cta-${p.id}`}>Build something similar <ArrowUpRight className="h-4 w-4" /></Link>
+  <motion.article layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="group" data-testid={`project-card-${p.id}`}>
+    <Link to={`/portfolio/${p.id}`} className="flex flex-col" data-testid={`project-link-${p.id}`}>
+      <div className="relative overflow-hidden rounded-[28px] bg-violet-soft">
+        <div className="aspect-[4/3]"><img src={p.img} alt={p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.06]" /></div>
+        <span className="absolute bottom-4 right-4 grid h-11 w-11 place-items-center rounded-full bg-white text-ink transition-transform duration-500 group-hover:rotate-45"><ArrowUpRight className="h-5 w-5" /></span>
+      </div>
+      <p className="mt-5 font-mono text-[11.5px] uppercase tracking-[0.14em] text-violet">{p.cat}</p>
+      <h3 className="mt-2 text-xl font-bold text-ink transition-colors group-hover:text-violet sm:text-2xl">{p.title}</h3>
+      <p className="mt-2 text-[15px] leading-relaxed text-muted2">{p.summary}</p>
+      <div className="mt-4 flex flex-wrap gap-1.5">{p.tools.slice(0, 4).map((t) => <span key={t} className="rounded-full bg-white px-2.5 py-1 text-[12.5px] text-ink/80 ring-1 ring-ink/10">{t}</span>)}</div>
+      <span className="mt-4 inline-flex w-fit items-center gap-1.5 text-[14.5px] font-semibold text-ink underline decoration-coral/60 decoration-2 underline-offset-[6px]">View case study</span>
+    </Link>
   </motion.article>
 );
 
@@ -39,7 +41,7 @@ export default function PortfolioPage() {
   const list = filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.cat === filter);
   return (
     <>
-      <PageHeader testId="portfolio-header" eyebrow="Selected work" title={<>Systems we design & <span className="text-gradient">build</span></>} sub="Demo and concept projects that show the kind of systems we create. Real client case studies will be added as they're published." />
+      <PageHeader testId="portfolio-header" eyebrow="Selected work" title={<>Systems we design & <span className="text-gradient">build</span></>} sub="Twelve projects across AI automation, website development, lead generation and customer communication. Click any project for the full case study." />
       <section className="pb-12 pt-4" data-testid="portfolio-section">
         <div className="container-x">
           <Filters value={filter} onChange={setFilter} />

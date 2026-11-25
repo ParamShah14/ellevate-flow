@@ -9,7 +9,7 @@ const ROWS = [
   { title: "Website Development", from: WEBSITE_PLANS[0].inr, to: "/pricing#websites" },
   { title: "WordPress Websites", from: WORDPRESS_PLANS[0].inr, to: "/pricing#wordpress" },
   { title: "AI Automation", from: AUTOMATION_PLANS[0].inr, to: "/pricing#automation" },
-  { title: "Complete Growth System", from: GROWTH_PLANS[0].inr, to: "/pricing#growth", hl: true },
+  { title: "Complete Growth System", from: GROWTH_PLANS.find((p) => p.popular).inr, to: "/pricing#growth", hl: true },
 ];
 
 export const PricingPreview = () => {

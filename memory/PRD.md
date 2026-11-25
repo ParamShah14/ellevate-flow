@@ -26,6 +26,12 @@ Build three premium pricing sections (Website Development, AI Automation, Comple
 - INR/USD toggle buttons (saved per browser) on all price areas; USD = INR/88 × 1.12, rounded to …9
 - Contact & About images removed; niche images on Services; 4-column footer per reference + /privacy, /terms pages
 
+## Implemented (2026-11-25, iteration 5)
+- Complete Growth System shown as ₹39,999 everywhere (hero chip, home preview, home card)
+- Every package has specs (pages/workflows, integrations, revisions, support) + delivery; comparison table, custom-quote CTA and new disclaimer per category; automation billing note; WordPress vs custom explainer
+- 12 real portfolio projects (data/projects.js) with clickable case study pages /portfolio/:id; liveUrl/videoUrl/screenshots placeholders
+- About: Meet the Founder with founder photo
+
 ## Backlog
 - P1: Merge these sections into the live EllevateFlow codebase (separate project)
 - P1: Admin view of enquiries

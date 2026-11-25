@@ -5,6 +5,22 @@ import { Reveal } from "../Reveal";
 import { WORDPRESS_PLANS } from "@/data/pricing";
 import { usePrice, CurrencyToggle } from "../Currency";
 
+const DIFF = [
+  ["WordPress", "Built on WordPress with a theme and Elementor page builder. Quicker to launch, easy for you to edit content yourself, and extended with plugins."],
+  ["Custom development", "Hand-coded design and functionality with no theme limits. Best for advanced animations, custom integrations, CRM and automation-heavy builds."],
+];
+
+const Difference = () => (
+  <Reveal className="mt-8 grid gap-3 md:grid-cols-2">
+    {DIFF.map(([t, d], i) => (
+      <div key={t} className={`rounded-2xl p-5 ${i ? "bg-ink text-white" : "bg-violet-soft text-ink"}`} data-testid={`wp-diff-${i}`}>
+        <p className="font-display text-lg font-bold">{t}</p>
+        <p className={`mt-1.5 text-[14.5px] leading-relaxed ${i ? "text-white/80" : "text-ink/80"}`}>{d}</p>
+      </div>
+    ))}
+  </Reveal>
+);
+
 export const WordPressPricing = ({ className = "" }) => (
   <PricingSection
     id="wordpress"
@@ -16,7 +32,9 @@ export const WordPressPricing = ({ className = "" }) => (
     cta="Get Started"
     cols="lg:grid-cols-4"
     className={className}
-  />
+  >
+    <Difference />
+  </PricingSection>
 );
 
 export const WordPressTeaser = () => {

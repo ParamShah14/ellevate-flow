@@ -22,6 +22,30 @@ const Values = () => (
   </section>
 );
 
+const Founder = () => (
+  <section className="py-16 sm:py-24" data-testid="about-founder">
+    <div className="container-x grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <Reveal>
+        <div className="relative mx-auto max-w-sm">
+          <div aria-hidden="true" className="absolute -inset-3 rounded-[40px] bg-brand opacity-25 blur-2xl" />
+          <div className="relative overflow-hidden rounded-[36px] ring-1 ring-ink/10">
+            <img src="/img/founder.jpg" alt="Founder of EllevateFlow" className="aspect-[4/5] w-full object-cover object-top" data-testid="founder-photo" />
+          </div>
+        </div>
+      </Reveal>
+      <Reveal delay={0.1}>
+        <p className="eyebrow">Meet the Founder</p>
+        <h2 className="mt-4 text-3xl font-bold leading-[1.1] text-ink sm:text-[44px]">“Building smarter digital solutions for <span className="text-gradient">modern businesses.</span>”</h2>
+        <div className="mt-6 space-y-4 text-[16px] leading-relaxed text-muted2">
+          <p>I'm the founder of EllevateFlow, passionate about AI automation, technology and building digital solutions that solve real business problems.</p>
+          <p>My goal is to help businesses simplify operations, improve customer experiences and grow through intelligent automation and modern web technologies.</p>
+          <p>At EllevateFlow, we combine technology with practical business thinking to create solutions that make a real difference.</p>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+);
+
 export default function AboutPage() {
   return (
     <>
@@ -38,6 +62,7 @@ export default function AboutPage() {
           </Reveal>
         </div>
       </section>
+      <Founder />
       <Values />
       <Process />
       <FinalCta />

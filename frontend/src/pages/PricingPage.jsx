@@ -4,7 +4,7 @@ import { PricingSection } from "@/components/ef/PricingSection";
 import { GrowthSection } from "@/components/ef/GrowthSection";
 import { CustomQuote } from "@/components/ef/CustomQuote";
 import { WordPressPricing } from "@/components/ef/home/WordPress";
-import { WEBSITE_PLANS, AUTOMATION_PLANS } from "@/data/pricing";
+import { WEBSITE_PLANS, AUTOMATION_PLANS, AUTOMATION_NOTE } from "@/data/pricing";
 
 export default function PricingPage() {
   return (
@@ -29,6 +29,7 @@ export default function PricingPage() {
         sub="Automate repetitive tasks, capture more opportunities and make your business operations more efficient."
         plans={AUTOMATION_PLANS}
         cta="Automate My Business"
+        extraNote={AUTOMATION_NOTE}
         className="border-t border-ink/5 bg-white"
       />
       <GrowthSection />
